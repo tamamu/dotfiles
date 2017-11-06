@@ -46,6 +46,7 @@ download() {
 }
 
 link_files() {
+  ln -s -i $DOT_DIRECTORY/base16-shell $HOME/.config/base16-shell
   ln -s -i $DOT_DIRECTORY/nvim $HOME/.config/nvim
   ln -s -i $DOT_DIRECTORY/zshrc $HOME/.zshrc
   source $HOME/.zshrc
