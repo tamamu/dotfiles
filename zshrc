@@ -11,12 +11,12 @@
 export TERM=xterm-256color
 export XDG_CONFIG_HOME=$HOME/.config
 export RUST_SRC_PATH=/usr/local/src/rustc-1.7.0/src
-if [ `which go` ]; then
+if which go > /dev/null 2>&1; then
   export GOPATH=~/go-dev
   export GOROOT=$(go env GOROOT)
   export PATH="${PATH}:$GOPATH/bin"
 fi
-if [ `which ros` ]; then
+if which ros > /dev/null 2>&1; then
   export ROSWELL_INSTALL_DIR=$HOME/.roswell
 fi
 export PATH="${PATH}:$HOME/.local/bin"
@@ -24,15 +24,14 @@ export PATH="${PATH}:$HOME/.conscript/bin:/usrlib/jvm/default/bin"
 export PATH="${PATH}:$HOME/.gem/ruby/2.3.0/bin"
 export PATH="${PATH}:$ROSWELL_INSTALL_DIR/bin"
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
-if [ `which nvim` ]; then
+if which nvim > /dev/null 2>&1; then
   alias vim=nvim
 fi
 
-if [ ! `which exa` ]; then
-  alias exa=ls
+if which exa > /dev/null 2>&1; then
+  alias ls=exa
 fi
 
-alias ls=exa
 alias l=ls
 alias la="ls -a"
 
