@@ -3,24 +3,30 @@
 # Copyright (c) Eddie 2017
 #
 
-autoload -Uz compinit promptinit utility
-compinit
-promptinit
-prompt paradox
+#autoload -Uz compinit promptinit utility
+#compinit
+#promptinit
+#prompt paradox
 
 export TERM=xterm-256color
 export XDG_CONFIG_HOME=$HOME/.config
 export RUST_SRC_PATH=/usr/local/src/rustc-1.7.0/src
-export GOPATH=~/go-dev
-export GOROOT=$(go env GOROOT)
-export ROSWELL_INSTALL_DIR=$HOME/.roswell
+if [ `which go` ]; then
+  export GOPATH=~/go-dev
+  export GOROOT=$(go env GOROOT)
+  export PATH="${PATH}:$GOPATH/bin"
+fi
+if [ `which ros` ]; then
+  export ROSWELL_INSTALL_DIR=$HOME/.roswell
+fi
 export PATH="${PATH}:$HOME/.local/bin"
 export PATH="${PATH}:$HOME/.conscript/bin:/usrlib/jvm/default/bin"
 export PATH="${PATH}:$HOME/.gem/ruby/2.3.0/bin"
-export PATH="${PATH}:$GOPATH/bin"
 export PATH="${PATH}:$ROSWELL_INSTALL_DIR/bin"
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
-alias vim=nvim
+if [ `which nvim` ]; then
+  alias vim=nvim
+fi
 
 if [ ! `which exa` ]; then
   alias exa=ls
