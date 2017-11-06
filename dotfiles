@@ -1,0 +1,75 @@
+#!/bin/sh
+
+DOT_DIRECTORY="${HOME}/.dotfiles"
+DOT_TARBALL="https://github.com/tamamu/dotfiles/tarball/master"
+REMOTE_URL="git@github.com:tamamu/dotfiles.git"
+
+usage() {
+  name=`basename $0`
+  cat <<EOF
+Usage:
+  $name [arguments] [command]
+Commands:
+  deploy
+  initialize
+Arguments:
+  -f $(tput setaf 1)** warning **$(tput sgr0) Overwrite dotfiles.
+  -h Print help (this message)
+EOF
+  exit 1
+}
+
+while getopts :f:h opt; do
+  case ${opt} in
+    f)
+      OVERWRITE=true
+      ;;
+    h)
+      usage
+      ;;
+    esac
+  done
+shift $((OPTIND - 1))
+
+download() {
+  if [ -n "${OVERWRITE}" -o ! -d ${DOT_DIRECTORY} ]; then
+    echo "Downloading dotfiles..."
+    rm -rf ${DOT_DIRECTORY}
+    git clone --recursive $REMOTE_URL $DOT_DIRECTORY
+    if [ $? = 0 ]; then
+      echo $(tput setaf 2)Download dotfiles complete!. $(tput sgr0)
+    else
+      echo $(tput setaf 1)Download dotfiles failed. $(tput sgr0)
+      return 1
+    fi
+  fi
+}
+
+link_files() {
+  ln -s -i $DOT_DIRECTORY/nvim $HOME/.config/nvim
+  ln -s -i $DOT_DIRECTORY/zshrc $HOME/.zshrc
+  source $HOME/.zshrc
+}
+
+initialize() {
+  [ ${SHELL} != "/bin/zsh" ] && chsh -s /bin/zsh
+  echo "$(tput setaf 2)Initialize complete!. $(tput sgr0)"
+}
+
+command=$1
+[ $# -gt 0 ] && shift
+
+case $command in
+  deploy)
+    link_files
+    ;;
+  init)
+    download && initialize
+    ;;
+  *)
+    usage
+    ;;
+esac
+
+
+exit 0
