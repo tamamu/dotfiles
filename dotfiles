@@ -2,7 +2,7 @@
 
 DOT_DIRECTORY="${HOME}/.dotfiles"
 DOT_TARBALL="https://github.com/tamamu/dotfiles/tarball/master"
-REMOTE_URL="git@github.com:tamamu/dotfiles.git"
+REMOTE_URL="https://github.com/tamamu/dotfiles.git"
 
 usage() {
   name=`basename $0`
@@ -35,7 +35,7 @@ download() {
   if [ -n "${OVERWRITE}" -o ! -d ${DOT_DIRECTORY} ]; then
     echo "Downloading dotfiles..."
     rm -rf ${DOT_DIRECTORY}
-    git clone --recursive $REMOTE_URL $DOT_DIRECTORY
+    git clone --recursive ${REMOTE_URL} ${DOT_DIRECTORY}
     if [ $? = 0 ]; then
       echo $(tput setaf 2)Download dotfiles complete!. $(tput sgr0)
     else
