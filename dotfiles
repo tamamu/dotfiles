@@ -31,29 +31,45 @@ while getopts :f:h opt; do
   done
 shift $((OPTIND - 1))
 
+put_proc() {
+  echo $(tput setaf 3)* $1...$(tput sgr0)
+}
+
+put_comp() {
+  echo $(tput setaf 2)✔ $1$(tput sgr0)
+}
+
+put_fail() {
+  echo $(tput setaf 1)✗ $1$(tput sgr0)
+}
+
 download() {
   if [ -n "${OVERWRITE}" -o ! -d ${DOT_DIRECTORY} ]; then
-    echo "Downloading dotfiles..."
+    put_proc "Download dotfiles"
     rm -rf ${DOT_DIRECTORY}
     git clone --recursive ${REMOTE_URL} ${DOT_DIRECTORY}
     if [ $? = 0 ]; then
-      echo $(tput setaf 2)Download dotfiles complete!. $(tput sgr0)
+      put_comp "Download dotfiles complete."
     else
-      echo $(tput setaf 1)Download dotfiles failed. $(tput sgr0)
+      put_fail "Download dotfiles failed."
       return 1
     fi
   fi
 }
 
 link_files() {
+  put_proc "Link base16-shell"
   ln -s -i $DOT_DIRECTORY/base16-shell $HOME/.config/base16-shell
+  put_proc "Link neovim config"
   ln -s -i $DOT_DIRECTORY/nvim $HOME/.config/nvim
+  put_proc "Link zshrc"
   ln -s -i $DOT_DIRECTORY/zshrc $HOME/.zshrc
 }
 
 initialize() {
+  put_proc "Change shell to zsh"
   [ ${SHELL} != "/bin/zsh" ] && chsh -s /bin/zsh
-  echo "$(tput setaf 2)Initialize complete!. $(tput sgr0)"
+  put_comp "Initialize complete."
 }
 
 command=$1
