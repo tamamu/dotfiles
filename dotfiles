@@ -7,6 +7,8 @@ REMOTE_URL="https://github.com/tamamu/dotfiles.git"
 POWERLINE_DIRECTORY="${HOME}/powerline_fonts"
 POWERLINE_URL="https://github.com/powerline/fonts.git"
 
+PREZTO_URL="https://github.com/sorin-ionescu/prezto.git"
+
 usage() {
   name=`basename $0`
   cat <<EOF
@@ -83,6 +85,9 @@ initialize() {
   else
     put_fail "Install Powerline fonts failed. Skip."
   fi
+  put_proc "Download Prezto"
+  git clone --recursive ${PREZTO_URL} $HOME/.zprezto
+  put_comp "Download Prezto complete."
   put_proc "Change shell to zsh"
   [ ${SHELL} != "/bin/zsh" ] && chsh -s /bin/zsh
   put_comp "Initialize complete."
