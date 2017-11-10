@@ -2,21 +2,37 @@
 # Dotfiles for Eddie
 # Copyright (c) Eddie 2017
 #
+#
+if [[ -s $HOME/.zprezto/init.zsh ]]; then
+  source $HOME/.zprezto/init.zsh
+fi
 
-#autoload -Uz compinit promptinit utility
-#compinit
-#promptinit
-#prompt paradox
+autoload -Uz compinit promptinit utility
+compinit
+promptinit
+prompt paradox
+
+export HISTFILE=${HOME}/.zsh_history
+export HISTSIZE=1000
+export SAVEHIST=100000
+setopt hist_ignore_dups
+setopt EXTENDED_HISTORY
+setopt hist_expand
 
 export TERM=xterm-256color
 export XDG_CONFIG_HOME=$HOME/.config
 export RUST_SRC_PATH=/usr/local/src/rustc-1.7.0/src
-if which go > /dev/null 2>&1; then
+
+exists() {
+  which $1 > /dev/null 2>&1
+}
+
+if exists go ; then
   export GOPATH=~/go-dev
   export GOROOT=$(go env GOROOT)
   export PATH="${PATH}:$GOPATH/bin"
 fi
-if which ros > /dev/null 2>&1; then
+if exists ros; then
   export ROSWELL_INSTALL_DIR=$HOME/.roswell
 fi
 export PATH="${PATH}:$HOME/.local/bin"
@@ -24,12 +40,16 @@ export PATH="${PATH}:$HOME/.conscript/bin:/usrlib/jvm/default/bin"
 export PATH="${PATH}:$HOME/.gem/ruby/2.3.0/bin"
 export PATH="${PATH}:$ROSWELL_INSTALL_DIR/bin"
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
-if which nvim > /dev/null 2>&1; then
+if exists nvim; then
   alias vim=nvim
 fi
 
-if which exa > /dev/null 2>&1; then
+if exists exa; then
   alias ls=exa
+fi
+
+if exists htop; then
+  alias top=htop
 fi
 
 alias l=ls
