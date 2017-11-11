@@ -55,7 +55,7 @@ fi
 alias l=ls
 alias la="ls -a"
 
-BASE16_SHELL=$HOME/.config/base16-shell/
+BASE16_SHELL=$HOME/.dotfiles/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 echo -e "\t\e[1m\e[32m\"作りたいものを作るには結局大量のコードを書かないといけない\"\e[0m"
