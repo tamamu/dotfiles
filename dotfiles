@@ -8,6 +8,7 @@ POWERLINE_DIRECTORY="${HOME}/powerline_fonts"
 POWERLINE_URL="https://github.com/powerline/fonts.git"
 
 PREZTO_URL="https://github.com/sorin-ionescu/prezto.git"
+PREZTO_DIRECTORY="${HOME}/.zprezto"
 
 usage() {
   name=`basename $0`
@@ -69,23 +70,33 @@ link_files() {
   ln -s -i $DOT_DIRECTORY/nvim $HOME/.config/nvim
   put_proc "Link zshrc"
   ln -s -i $DOT_DIRECTORY/zshrc $HOME/.zshrc
+  put_proc "Linx zpreztorc"
+  ln -s -i $DOT_DIRECTORY/zpreztorc $HOME/.zpreztorc
 }
 
 initialize() {
-  put_proc "Download Powerline fonts"
-  git clone ${POWERLINE_URL} --depth=1 ${POWERLINE_DIRECTORY}
-  if [ $? = 0 ]; then
-    put_comp "Download Powerline fonts complete."
-    put_proc "Install Powerline fonts"
-    source ${POWERLINE_DIRECTORY}/install.sh
+  if [ -n "${OVERWRITE}" -o ! -d ${POWERLINE_DIRECTORY} ]; then
+    put_proc "Download Powerline fonts"
     rm -rf ${POWERLINE_DIRECTORY}
-    put_comp "Install Powerline fonts complete."
-  else
-    put_fail "Install Powerline fonts failed. Skip."
+    git clone ${POWERLINE_URL} --depth=1 ${POWERLINE_DIRECTORY}
+    if [ $? = 0 ]; then
+      put_comp "Download Powerline fonts complete."
+      put_proc "Install Powerline fonts"
+      source ${POWERLINE_DIRECTORY}/install.sh
+      rm -rf ${POWERLINE_DIRECTORY}
+      put_comp "Install Powerline fonts complete."
+    else
+      put_fail "Install Powerline fonts failed. Skip."
+    fi
   fi
-  put_proc "Download Prezto"
-  git clone --recursive ${PREZTO_URL} $HOME/.zprezto
-  put_comp "Download Prezto complete."
+
+  if [ -n "${OVERWRITE}" -o ! -d ${PREZTO_DIRECTORY} ]; then
+    put_proc "Download Prezto"
+    rm -rf ${PREZTO_DIRECTORY}
+    git clone --recursive ${PREZTO_URL} ${PREZTO_DIRECTORY}
+    put_comp "Download Prezto complete."
+  fi
+
   put_proc "Change shell to zsh"
   [ ${SHELL} != "/bin/zsh" ] && chsh -s /bin/zsh
   put_comp "Initialize complete."
