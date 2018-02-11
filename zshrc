@@ -41,6 +41,7 @@ fi
 if [ -d /usr/local/cuda ]; then
   export PATH="${PATH}:/usr/local/cuda/bin"
   export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/cuda/lib64"
+  export C_INCLUDE_PATH="/usr/local/cuda/include"
 fi
 export PATH="${PATH}:$HOME/.local/bin"
 export PATH="${PATH}:$HOME/.conscript/bin:/usrlib/jvm/default/bin"
