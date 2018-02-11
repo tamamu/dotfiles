@@ -35,6 +35,13 @@ fi
 if exists ros; then
   export ROSWELL_INSTALL_DIR=$HOME/.roswell
 fi
+if [ -d $HOME/.cargo ]; then
+  source $HOME/.cargo/env
+fi
+if [ -d /usr/local/cuda ]; then
+  export PATH="${PATH}:/usr/local/cuda/bin"
+  export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/cuda/lib64"
+fi
 export PATH="${PATH}:$HOME/.local/bin"
 export PATH="${PATH}:$HOME/.conscript/bin:/usrlib/jvm/default/bin"
 export PATH="${PATH}:$HOME/.gem/ruby/2.3.0/bin"
@@ -54,6 +61,10 @@ fi
 
 alias l=ls
 alias la="ls -a"
+
+if [ -e $HOME/.env ]; then
+  source $HOME/.env
+fi
 
 BASE16_SHELL=$HOME/.dotfiles/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
