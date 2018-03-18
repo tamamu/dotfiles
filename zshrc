@@ -67,7 +67,7 @@ if [ -e $HOME/.env ]; then
   source $HOME/.env
 fi
 
-if exists opam: then
+if exists opam; then
   . /home/tamamu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 fi
 
