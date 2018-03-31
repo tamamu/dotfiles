@@ -35,7 +35,7 @@ fi
 if exists ros; then
   export ROSWELL_INSTALL_DIR=$HOME/.roswell
 fi
-if [ -d $HOME/.cargo ]; then
+if [ -e $HOME/.cargo/env ]; then
   source $HOME/.cargo/env
 fi
 if [ -d /usr/local/cuda ]; then
