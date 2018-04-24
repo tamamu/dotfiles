@@ -23,6 +23,8 @@ export TERM=xterm-256color
 export XDG_CONFIG_HOME=$HOME/.config
 export RUST_SRC_PATH=/usr/local/src/rustc-1.7.0/src
 
+export EDITOR=nvim
+
 exists() {
   which $1 > /dev/null 2>&1
 }
