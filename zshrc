@@ -29,11 +29,6 @@ exists() {
   which $1 > /dev/null 2>&1
 }
 
-if exists go ; then
-  export GOPATH=~/go-dev
-  export GOROOT=$(go env GOROOT)
-  export PATH="${PATH}:$GOPATH/bin"
-fi
 if exists ros; then
   export ROSWELL_INSTALL_DIR=$HOME/.roswell
 fi
@@ -73,10 +68,27 @@ if exists opam; then
   . /home/tamamu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 fi
 
+# Projects Architecture
+#
+# - ~/Projects/
+#   - src/ # managed by ghq
+#   - bin/ # add to $PATH
+
 if [ -e $HOME/.goenv ]; then
   export GOENV_ROOT="$HOME/.goenv"
   export PATH="$GOENV_ROOT/bin:$PATH"
   eval "$(goenv init -)"
+  if exists go ; then
+    export GOPATH=$HOME/Projects
+    export GOROOT=$(go env GOROOT)
+    export PATH="${PATH}:$GOPATH/bin"
+  fi
+  if exists peco && exists ghq && exists hub ; then
+    alias g='cd $(ghq root)/$(ghq list | peco)'
+    alias gh='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
+  fi
+else
+  echo "Install goenv"
 fi
 
 BASE16_SHELL=$HOME/.dotfiles/base16-shell/
