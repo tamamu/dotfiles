@@ -73,6 +73,12 @@ if exists opam; then
   . /home/tamamu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 fi
 
+if [ -e $HOME/.goenv ]; then
+  export GOENV_ROOT="$HOME/.goenv"
+  export PATH="$GOENV_ROOT/bin:$PATH"
+  eval "$(goenv init -)"
+fi
+
 BASE16_SHELL=$HOME/.dotfiles/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
