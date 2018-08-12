@@ -74,6 +74,10 @@ if [ -e $HOME/.nvm ]; then
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
+if [ -e $HOME/Flutter/bin ]; then
+  export PATH=$HOME/Flutter/bin:$PATH
+fi
+
 # Projects Architecture
 #
 # - ~/Projects/
