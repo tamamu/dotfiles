@@ -29,6 +29,34 @@ exists() {
   which $1 > /dev/null 2>&1
 }
 
+# Choose a line from a file
+function fortune-line() {
+  sed -n $(awk "BEGIN{srand(1);print int(1+rand()*(-1+$(wc -l $1 | sed 's/\([0-9]*\) .*/\1/')))}")p $1
+}
+
+# Fuzzy history search
+# Installation: pacman -S fzf
+if exists fzf; then
+  # Colored cat command
+  # Installation: pacman -S bat
+  if exists bat; then
+    function preview() {
+      fzf --preview 'bat --color "always" {}'
+    }
+    function preview-current-directory() {
+      ls | preview
+    }
+    zle -N preview-current-directory
+    bindkey '^S' preview-current-directory
+  fi
+
+  function fh() {
+    zle -U "$( ([ -n "$ZSH_NAME" ] && fc -l 1 || history) | fzf +s --tac | sed 's/ *[0-9]* *//')"
+  }
+  zle -N fh
+  bindkey '^R' fh
+fi
+
 if exists ros; then
   export ROSWELL_INSTALL_DIR=$HOME/.roswell
 fi
@@ -104,8 +132,7 @@ fi
 BASE16_SHELL=$HOME/.dotfiles/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
-echo -e "\t\e[1m\e[32m\"作りたいものを作るには結局大量のコードを書かないといけない\"\e[0m"
-echo "                                                     \e[2m\e[32mrui ueyama\e[0m"
+echo -e "\tTips: \e[1m\e[32m\"$(fortune-line $HOME/.dotfiles/tips)\"\e[0m"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/tamamu/.sdkman"
