@@ -31,7 +31,7 @@ exists() {
 
 # Choose a line from a file
 function fortune-line() {
-  sed -n $(awk "BEGIN{srand(1);print int(1+rand()*(-1+$(wc -l $1 | sed 's/\([0-9]*\) .*/\1/')))}")p $1
+  sed -n $(awk "BEGIN{srand(1);print int(1+rand()*(-1+$(wc -l $1 | tr -s ' ' | cut -d ' ' -f 2)))}")p $1
 }
 
 # Fuzzy history search
