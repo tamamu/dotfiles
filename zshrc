@@ -57,6 +57,17 @@ if exists fzf; then
   bindkey '^R' fh
 fi
 
+if exists pyenv; then
+  case ${OSTYPE} in
+    darwin*)
+      export PYENV_ROOT=/usr/local/var/pyenv
+      eval "$(pyenv init -)"
+      ;;
+    linux*)
+      ;;
+  esac
+fi
+
 if exists ros; then
   export ROSWELL_INSTALL_DIR=$HOME/.roswell
 fi
