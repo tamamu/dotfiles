@@ -72,6 +72,8 @@ link_files() {
   ln -s -i $DOT_DIRECTORY/zshrc $HOME/.zshrc
   put_proc "Linx zpreztorc"
   ln -s -i $DOT_DIRECTORY/zpreztorc $HOME/.zpreztorc
+  put_proc "Link tmux config"
+  ln -s -i $DOT_DIRECTORY/tmux.conf $HOME/.tmux.conf
 }
 
 initialize() {
