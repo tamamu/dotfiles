@@ -12,6 +12,13 @@ compinit
 promptinit
 prompt paradox
 
+case ${OSTYPE} in
+  darwin*)
+    export LANG=ja_JP.UTF-8
+    ;;
+  linux*)
+    ;;
+esac
 export HISTFILE=${HOME}/.zsh_history
 export HISTSIZE=1000
 export SAVEHIST=100000
