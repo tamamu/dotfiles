@@ -17,6 +17,7 @@ case ${OSTYPE} in
     export LANG=ja_JP.UTF-8
     ;;
   linux*)
+    export DefaultIMModule=fcitx
     ;;
 esac
 export HISTFILE=${HOME}/.zsh_history
@@ -88,7 +89,7 @@ if [ -d /usr/local/cuda ]; then
 fi
 export PATH="${PATH}:$HOME/.local/bin"
 export PATH="${PATH}:$HOME/.conscript/bin:/usrlib/jvm/default/bin"
-export PATH="${PATH}:$HOME/.gem/ruby/2.3.0/bin"
+export PATH="${PATH}:$(ruby -e 'print Gem.user_dir')/bin"
 export PATH="${PATH}:$ROSWELL_INSTALL_DIR/bin"
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 if exists nvim; then
