@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+case ${OSTYPE} in
+  darwin*)
+    if sound_info=$(osascript -e 'get volume settings'); then
+      mute=$(test "$(echo $sound_info | awk '{print $8}')" = "muted:true")
+      vol=$(expr $(echo $sound_info | awk '{print $2}' | sed "s/[^0-9]//g") / 6)
+    else
+      mute=0
+      vol=0
+    fi
+    ;;
+  linux*)
+    vol=$((16*$(pamixer --get-volume)/100))
+    mute=$(test $(pamixer --get-mute) = "true")
+    ;;
+esac
+
+if $mute; then
+  str=""
+  for ((i=0; i < $vol; i++)); do
+    str="${str}#"
+  done
+  for ((i=$vol; i < 16; i++)); do
+    str="${str} "
+  done
+  sound="#[bold][$str]#[default] "
+else
+  sound="#[bold][      mute      ]#[default] "
+fi
+
+echo $sound
