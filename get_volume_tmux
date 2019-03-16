@@ -11,7 +11,7 @@ case ${OSTYPE} in
     fi
     ;;
   linux*)
-    vol=$((16*$(pamixer --get-volume)/100))
+    vol=$((8*$(pamixer --get-volume)/100))
     test $(pamixer --get-mute) = "true" && mute=0
     ;;
 esac
@@ -21,7 +21,7 @@ if $mute; then
   for ((i=0; i < $vol; i++)); do
     str="${str}■"
   done
-  for ((i=$vol; i < 16; i++)); do
+  for ((i=$vol; i < 8; i++)); do
     str="${str} "
   done
   sound="#[bold][$str]#[default] "
