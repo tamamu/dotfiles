@@ -37,6 +37,17 @@ exists() {
   which $1 > /dev/null 2>&1
 }
 
+# TMUX
+if which tmux >/dev/null 2>&1; then
+    # if no session is started, start a new session
+    test -z ${TMUX} && tmux
+
+    # when quitting tmux, try to attach
+    while test -z ${TMUX}; do
+        tmux attach || break
+    done
+fi
+
 # Choose a line from a file
 function fortune-line() {
   sed -n $(awk "BEGIN{srand(1);print int(1+rand()*(-1+$(wc -l $1 | tr -s ' ' | cut -d ' ' -f 1)))}")p $1
@@ -168,5 +179,5 @@ BASE16_SHELL=$HOME/.dotfiles/base16-shell/
 echo -e "\tTips: \e[1m\e[32m\"$(fortune-line $HOME/.dotfiles/tips)\"\e[0m"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/tamamu/.sdkman"
-[[ -s "/home/tamamu/.sdkman/bin/sdkman-init.sh" ]] && source "/home/tamamu/.sdkman/bin/sdkman-init.sh"
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
