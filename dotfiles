@@ -10,6 +10,9 @@ POWERLINE_URL="https://github.com/powerline/fonts.git"
 PREZTO_URL="https://github.com/sorin-ionescu/prezto.git"
 PREZTO_DIRECTORY="${HOME}/.zprezto"
 
+TPM_URL="https://github.com/tmux-plugins/tpm.git"
+TPM_DIRECTORY="${HOME}/.tmux/plugins/tpm"
+
 usage() {
   name=`basename $0`
   cat <<EOF
@@ -99,6 +102,13 @@ initialize() {
     rm -rf ${PREZTO_DIRECTORY}
     git clone --recursive ${PREZTO_URL} ${PREZTO_DIRECTORY}
     put_comp "Download Prezto complete."
+  fi
+
+  if [ -n "${OVERWRITE}" -o ! -d ${TPM_DIRECTORY} ]; then
+    put_proc "Download Tmux Plugin Manager"
+    rm -rf ${TPM_DIRECTORY}
+    git clone --recursive ${TPM_URL} ${TPM_DIRECTORY}
+    put_comp "Download Tmux Plugin Manager complete."
   fi
 
   put_proc "Change shell to zsh"
