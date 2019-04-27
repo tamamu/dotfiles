@@ -120,7 +120,7 @@ fi
 alias l=ls
 alias la="ls -a"
 
-alias mkwork='mkdir $(date +"%Y%m%d%H%M")'
+alias mkwork='mkdir $(date +"%Y%m%d%H%M"); cd $_'
 
 if [ -e $HOME/.env ]; then
   source $HOME/.env
