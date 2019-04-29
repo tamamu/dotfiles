@@ -79,6 +79,8 @@ link_files() {
   ln -s -i $DOT_DIRECTORY/tmux.conf $HOME/.tmux.conf
   mkdir -p $HOME/.tmux
   ln -s -i $DOT_DIRECTORY/*_tmux $HOME/.tmux/
+  put_proc "Link latexmkrc"
+  ln -s -i $DOT_DIRECTORY/latexmkrc $HOME/.latexmkrc
 }
 
 initialize() {
