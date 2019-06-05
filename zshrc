@@ -158,6 +158,10 @@ if exists git; then
   bindkey '^G^S' git_status
 fi
 
+if exists flutter; then
+  export PATH="/opt/flutter/.pub-cache/bin:$PATH"
+fi
+
 # Projects Architecture
 #
 # - ~/Projects/
