@@ -91,6 +91,7 @@ fi
 
 if exists ros; then
   export ROSWELL_INSTALL_DIR=$HOME/.roswell
+  export PATH="${PATH}:~/.roswell/bin"
 fi
 if [ -e $HOME/.cargo/env ]; then
   source $HOME/.cargo/env
