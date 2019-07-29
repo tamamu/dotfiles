@@ -128,7 +128,7 @@ if [ -e $HOME/.env ]; then
 fi
 
 if exists opam; then
-  . /home/tamamu/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+  test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 fi
 
 if [ -e $HOME/.nvm ]; then
