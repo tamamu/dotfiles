@@ -186,6 +186,11 @@ else
   echo "Install goenv"
 fi
 
+if [ -e $HOME/.asdf ]; then
+  . $HOME/.asdf/asdf.sh
+  . $HOME/.asdf/completions/asdf.bash
+fi
+
 alias renamecd='source $HOME/.dotfiles/renamecd.sh'
 
 BASE16_SHELL=$HOME/.dotfiles/base16-shell/
