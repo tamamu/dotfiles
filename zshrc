@@ -163,6 +163,10 @@ if exists flutter; then
   export PATH="/opt/flutter/.pub-cache/bin:$PATH"
 fi
 
+if exists direnv; then
+  eval "$(direnv hook zsh)"
+fi
+
 # Projects Architecture
 #
 # - ~/Projects/
