@@ -195,6 +195,11 @@ if [ -e $HOME/.asdf ]; then
   . $HOME/.asdf/completions/asdf.bash
 fi
 
+# PHP
+if exists composer; then
+  export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+fi
+
 alias renamecd='source $HOME/.dotfiles/renamecd.sh'
 
 BASE16_SHELL=$HOME/.dotfiles/base16-shell/
