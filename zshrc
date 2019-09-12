@@ -92,6 +92,9 @@ fi
 if exists ros; then
   export ROSWELL_INSTALL_DIR=$HOME/.roswell
   export PATH="${PATH}:~/.roswell/bin"
+  if exists rlwrap; then
+    alias ros='rlwrap ros'
+  fi
 fi
 if [ -e $HOME/.cargo/env ]; then
   source $HOME/.cargo/env
