@@ -78,17 +78,6 @@ if exists fzf; then
   bindkey '^R' fh
 fi
 
-if exists pyenv; then
-  case ${OSTYPE} in
-    darwin*)
-      export PYENV_ROOT=/usr/local/var/pyenv
-      eval "$(pyenv init -)"
-      ;;
-    linux*)
-      ;;
-  esac
-fi
-
 if exists ros; then
   export ROSWELL_INSTALL_DIR=$HOME/.roswell
   export PATH="${PATH}:~/.roswell/bin"
@@ -103,6 +92,10 @@ if [ -d /usr/local/cuda ]; then
   export PATH="${PATH}:/usr/local/cuda/bin"
   export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/cuda/lib64"
   export C_INCLUDE_PATH="/usr/local/cuda/include"
+fi
+if [ -d $HOME/.pyenv ]; then
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
 fi
 export PATH="${PATH}:$HOME/.local/bin"
 export PATH="${PATH}:$HOME/.conscript/bin:/usrlib/jvm/default/bin"
