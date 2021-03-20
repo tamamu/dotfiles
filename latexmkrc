@@ -3,7 +3,7 @@ $pdflatex = 'pdflatex %O -synctex=1 -interaction=nonstopmode %S';
 $lualatex = 'lualatex %O -synctex=1 -interaction=nonstopmode %S';
 $xelatex = 'xelatex %O -synctex=1 -interaction=nonstopmode %S';
 $biber = 'biber %O --bblencoding=utf8 -u -U --output_safechars %B';
-$bibtex = 'upbibtex %O %B';
+$bibtex = 'bibtex %O %B';
 $makeindex = 'upmendex %O -o %D %S';
 $dvipdf = 'dvipdfmx %O -o %D %S';
 $dvips = 'dvips %O -z -f %S | convbkmk -u > %D';
