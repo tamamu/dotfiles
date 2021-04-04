@@ -128,8 +128,8 @@ if exists opam; then
   test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 fi
 
-if [ -e $HOME/.nvm ]; then
-  export NVM_DIR="$HOME/.nvm"
+if [ -e $HOME/.config/nvm ]; then
+  export NVM_DIR="$HOME/.config/nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
