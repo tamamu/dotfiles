@@ -33,6 +33,9 @@ if which rustc >/dev/null 2>&1; then
   export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
 export ANDROID_HOME=$HOME/Android/Sdk
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export ANDROID_NDK_HOME=$HOME/Android/Sdk/ndk/21.4.7075529
+export ANDROID_NDK_TOOLCHAIN=$HOME/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64
 
 export EDITOR=nvim
 
@@ -40,15 +43,23 @@ exists() {
   which $1 > /dev/null 2>&1
 }
 
-# TMUX
-if which tmux >/dev/null 2>&1; then
-    # if no session is started, start a new session
-    test -z ${TMUX} && tmux
+enable_tmux=0
 
-    # when quitting tmux, try to attach
-    while test -z ${TMUX}; do
-        tmux attach || exit
-    done
+# TMUX
+function start-tmux() {
+	if which tmux >/dev/null 2>&1; then
+	    # if no session is started, start a new session
+	    test -z ${TMUX} && tmux
+
+	    # when quitting tmux, try to attach
+	    while test -z ${TMUX}; do
+		tmux attach || exit
+	    done
+	fi
+}
+
+if [ $enable_tmux -eq 1 ]; then
+	start-tmux
 fi
 
 # Choose a line from a file
@@ -103,7 +114,7 @@ export PATH="${PATH}:$HOME/.local/bin"
 export PATH="${PATH}:$HOME/.conscript/bin:/usrlib/jvm/default/bin"
 export PATH="${PATH}:$(ruby -e 'print Gem.user_dir')/bin"
 export PATH="${PATH}:$ROSWELL_INSTALL_DIR/bin"
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+export JAVA_HOME=/usr/lib/jvm/default
 if exists nvim; then
   alias vim=nvim
 fi
