@@ -121,6 +121,7 @@ fi
 
 if exists exa; then
   alias ls=exa
+  alias lt="exa --tree --level 5"
 fi
 
 if exists htop; then
