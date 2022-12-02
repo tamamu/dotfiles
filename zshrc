@@ -32,10 +32,12 @@ export XDG_CONFIG_HOME=$HOME/.config
 if which rustc >/dev/null 2>&1; then
   export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 fi
-export ANDROID_HOME=$HOME/Android/Sdk
-export ANDROID_SDK_ROOT=$HOME/Android/Sdk
-export ANDROID_NDK_HOME=$HOME/Android/Sdk/ndk/21.4.7075529
-export ANDROID_NDK_TOOLCHAIN=$HOME/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64
+
+# export ANDROID_HOME=$HOME/Android/Sdk
+# export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+# export ANDROID_NDK_HOME=$HOME/Android/Sdk/ndk/21.4.7075529
+# export ANDROID_NDK_TOOLCHAIN=$HOME/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/linux-x86_64
+export ANDROID_NDK_ROOT=/opt/android-ndk
 
 export EDITOR=nvim
 
@@ -168,8 +170,8 @@ if exists git; then
   bindkey '^G^S' git_status
 fi
 
-if exists flutter; then
-  export PATH="/opt/flutter/.pub-cache/bin:$PATH"
+if exists fvm; then
+  export PATH="$HOME/fvm/default/bin:$PATH"
 fi
 
 if exists direnv; then
