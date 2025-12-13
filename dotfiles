@@ -81,6 +81,9 @@ link_files() {
   ln -s -i $DOT_DIRECTORY/*_tmux $HOME/.tmux/
   put_proc "Link latexmkrc"
   ln -s -i $DOT_DIRECTORY/latexmkrc $HOME/.latexmkrc
+  put_proc "Link wezterm config"
+  mkdir $HOME/.config/wezterm
+  ln -s -i $DOT_DIRECTORY/wezterm.lua $HOME/.config/wezterm
 }
 
 initialize() {
