@@ -91,7 +91,7 @@ initialize() {
     if [ $? = 0 ]; then
       put_comp "Download Powerline fonts complete."
       put_proc "Install Powerline fonts"
-      source ${POWERLINE_DIRECTORY}/install.sh
+      bash ${POWERLINE_DIRECTORY}/install.sh
       rm -rf ${POWERLINE_DIRECTORY}
       put_comp "Install Powerline fonts complete."
     else
