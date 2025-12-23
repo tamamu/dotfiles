@@ -27,6 +27,7 @@ setopt hist_ignore_dups
 setopt EXTENDED_HISTORY
 setopt hist_expand
 
+export PATH="${PATH}:$HOME/.local/bin"
 export TERM=xterm-256color
 export XDG_CONFIG_HOME=$HOME/.config
 if which rustc >/dev/null 2>&1; then
@@ -112,7 +113,6 @@ if [ -d $HOME/.pyenv ]; then
   export PATH="$PYENV_ROOT/bin:$PATH"
   eval "$(pyenv init --path)"
 fi
-export PATH="${PATH}:$HOME/.local/bin"
 export PATH="${PATH}:$HOME/.conscript/bin:/usrlib/jvm/default/bin"
 export PATH="${PATH}:$(ruby -e 'print Gem.user_dir')/bin"
 export PATH="${PATH}:$ROSWELL_INSTALL_DIR/bin"
@@ -193,12 +193,13 @@ if [ -e $HOME/.goenv ]; then
     export GOROOT=$(go env GOROOT)
     export PATH="${PATH}:$GOPATH/bin"
   fi
-  if exists peco && exists ghq && exists hub ; then
-    alias g='cd $(ghq root)/$(ghq list | peco)'
-    alias ghu='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
-  fi
 else
   echo "Install goenv"
+fi
+
+if exists peco && exists ghq && exists hub ; then
+  alias g='cd $(ghq root)/$(ghq list | peco)'
+  alias ghu='hub browse $(ghq list | peco | cut -d "/" -f 2,3)'
 fi
 
 if [ -e $HOME/.asdf ]; then
